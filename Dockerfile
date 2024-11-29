@@ -55,8 +55,21 @@ COPY ./config/php.ini /etc/php/8.2/cli/php.ini
 RUN sudo a2enmod rewrite
 
 # Aliases
+# Laravel aliases
 RUN echo 'alias pa="php artisan"'  >> ~/.bashrc
+RUN echo 'alias pm="php artisan make:model"'  >> ~/.bashrc
+RUN echo 'alias pc="php artisan make:controller"'  >> ~/.bashrc
+RUN echo 'alias pam="php artisan migrate"'  >> ~/.bashrc
+RUN echo 'alias par="php artisan migrate:rollback"'  >> ~/.bashrc
+RUN echo 'alias pas="php artisan db:seed"'  >> ~/.bashrc
 RUN echo 'alias pamfs="php artisan migrate:fresh --seed"'  >> ~/.bashrc
+
+RUN echo 'alias paoc="php artisan optimize:clear"'  >> ~/.bashrc
+RUN echo 'alias pqw="php artisan queue:work"'  >> ~/.bashrc
+
+# Livewire aliases
+RUN echo 'alias lwc="php artisan livewire:make"'  >> ~/.bashrc
+RUN echo 'alias lwd="php artisan livewire:delete"'  >> ~/.bashrc
 
 WORKDIR /var/www/html
 
