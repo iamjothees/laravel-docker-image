@@ -1,8 +1,8 @@
 FROM ubuntu:22.04
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
-# ENV APP_NAME "Laravel Docker Boilerplate"
-# ENV APP_ROOT_DIR "laravel-docker-boilerplate"
+# ENV APP_NAME="Laravel Docker Boilerplate"
+# ENV APP_ROOT_DIR="laravel-docker-boilerplate"
 
 
 # Install base packages
@@ -35,8 +35,8 @@ COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 # Install nvm, node && npm
     # nvm environment variables
-ENV NVM_DIR /usr/local/nvm
-ENV NODE_VERSION 18.20.2
+ENV NVM_DIR="/usr/local/nvm"
+ENV NODE_VERSION="18.20.2"
     # install nvm
         # https://github.com/creationix/nvm#install-script
 RUN curl --silent -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.2/install.sh | bash
@@ -53,6 +53,10 @@ COPY ./config/apache2.conf /etc/apache2/apache2.conf
 COPY ./config/000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY ./config/php.ini /etc/php/8.2/cli/php.ini
 RUN sudo a2enmod rewrite
+
+# Aliases
+RUN echo 'alias pa="php artisan"'  >> ~/.bashrc
+RUN echo 'alias pamfs="php artisan migrate:fresh --seed"'  >> ~/.bashrc
 
 WORKDIR /var/www/html
 
